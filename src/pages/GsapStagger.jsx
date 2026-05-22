@@ -1,5 +1,39 @@
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
+const timeline = gsap.timeline({
+  repeat: -1,
+  repeatDelay: 1,
+});
+
 const GsapStagger = () => {
-  // TODO: Implement the gsap.stagger() method
+
+  useGSAP(() => {
+    timeline.to(".stagger-box", {
+      delay: 1,
+      duration: 1,
+      y: "+=100",
+      stagger: {
+        each: 0.2,
+      },
+      borderRadius: "100%",
+      ease: "bounce.out",
+      backgroundColor: "red",
+    });
+
+    timeline.to(".stagger-box", {
+      delay: 1,
+      duration: 2,
+      y: "-=100",
+      stagger: {
+        each: 0.2,
+      },
+      borderRadius: "10%",
+      ease: "elastic.in",
+      clearProps: "backgroundColor",
+    });
+
+  }, []);
 
   return (
     <main>
@@ -7,7 +41,7 @@ const GsapStagger = () => {
 
       <p className="mt-5 text-gray-500">
         GSAP stagger is a feature that allows you to apply animations with a
-        staggered delay to a group of elements.
+        staggered delay to a group of elements. Here is an example:
       </p>
 
       <p className="mt-5 text-gray-500">
