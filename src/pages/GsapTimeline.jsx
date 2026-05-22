@@ -1,5 +1,55 @@
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
 const GsapTimeline = () => {
-  // TODO: Implement the gsap timeline
+
+  const timeline = gsap.timeline({
+    repeat: -1,
+    yoyo: true,
+    repeatDelay: 1,
+  });
+
+  const changeText = (newText) => {
+    gsap.to("#text", {
+      opacity: 0,
+      duration: 0.3,
+      onComplete: () => {
+        document.getElementById("text").textContent = newText;
+        gsap.to("#text", { opacity: 1, duration: 0.3 });
+      },
+    });
+  };
+
+  useGSAP(() => {
+    timeline.to("#yellow-box", {
+      x: "+=250",
+      duration: 2,
+      borderRadius: "50%",
+      backgroundColor: "red",
+      color: "yellow",
+      ease: "back.inOut",
+      onStart: () => {
+        changeText("Hello");
+      },
+        onComplete: () => {
+          changeText("World");
+        },
+    });
+
+    timeline.to("#yellow-box", {
+      x: "+=250",
+      duration: 2,
+      borderRadius: "8px",
+      backgroundColor: "black",
+      color: "white",
+      ease: "back.inOut",
+      onComplete: () => {
+        changeText("Back to Black");
+      },
+
+    });
+
+  }, []);
 
   return (
     <main>
@@ -35,9 +85,11 @@ const GsapTimeline = () => {
       </p>
 
       <div className="mt-20 space-y-10">
-        <button onClick={() => {}}>Play/Pause</button>
+        <button>Play/Pause</button>
 
-        <div id="yellow-box" className="w-20 h-20 bg-yellow-500 rounded-lg" />
+        <div id="yellow-box" className="w-20 h-20 bg-white rounded-lg flex items-center justify-center">
+          <span id="text">Omar</span>
+        </div>
       </div>
     </main>
   );
